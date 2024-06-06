@@ -16,11 +16,13 @@ class ProjectResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return[
+        return [
             'id' => $this->id,
             'description' => $this->description,
             'feature' => $this->feature,
-            'image_path' => $this->image_path, //? Storage::url($this->image_path) : null
+            // 'image_path' => $this->image_path, //? Storage::url($this->image_path) : null,
+            'image_path' => $this->image_path ? $this->image_path : Storage::url($this->image_path),
+            'address' => $this->address,
             'created_at' => (new Carbon($this->created_at))->format('Y-m-d'),
             'updated_at' => (new Carbon($this->updated_at))->format('Y-m-d'),
             'created_by' => new UserResource($this->createdBy),
@@ -28,3 +30,4 @@ class ProjectResource extends JsonResource
         ];
     }
 }
+

@@ -8,6 +8,7 @@ use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
+    public $imageCategories = ['landscape', 'macro', 'wildlife', 'aerial', 'underwater', 'time_lapse', 'panoramic', 'abstract_nature', 'seasonal', 'night_sky', 'nature_textures', 'botanical_illustrations', 'environmental_impact', 'sunrise_and_sunset', 'natural_phenomena', 'sustainable_agriculture']; 
     /**
      * Display a listing of the resource.
      */
@@ -17,12 +18,12 @@ class ProjectController extends Controller
         $sortField = request('sort_field', 'created_at');
         $sortDirection = request('sort_direction', 'desc');
 
-        if (request('name')) {
-            $query->where('name', 'like', '%' . request('name') . '%');
+        if (request('id')) {
+            $query->where('id', 'like', '%' . request('id') . '%');
         }
 
-        if (request('status')) {
-            $query->where('status', request('status'));
+        if (request('feature')) {
+            $query->where('feature', request('feature'));
         }
 
         $projects = $query->orderBy($sortField, $sortDirection)
@@ -32,7 +33,9 @@ class ProjectController extends Controller
         return inertia('Projects/Index', [
             'projects' => ProjectResource::collection($projects),
             'queryParams' => request()->query() ?: null,
-            "success" => session("success")
+            "success" => session("success"),
+            "feature" => $this->imageCategories
+
         ]);
     }
 
@@ -41,7 +44,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Projects/Create', [
+            "feature" => $this->imageCategories
+        ]);
     }
 
     /**

@@ -6,10 +6,17 @@ import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import TableHeading from "@/Components/TableHeading";
 
-export default function index({ auth, projects, queryParams = null, success }) {
+export default function index({
+    auth,
+    projects,
+    feature,
+    queryParams = null,
+    success,
+}) {
     queryParams = queryParams || {};
 
     const searchFieldChange = (name, value) => {
+        console.log(name);
         if (value) {
             queryParams[name] = value;
         } else {
@@ -52,13 +59,13 @@ export default function index({ auth, projects, queryParams = null, success }) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Projects
+                        All Images
                     </h2>
                     <Link
                         href={route("project.create")}
                         className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
                     >
-                        Add new
+                        Add image
                     </Link>
                 </div>
             }
@@ -79,12 +86,13 @@ export default function index({ auth, projects, queryParams = null, success }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-4">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-600">
-                            <pre>{JSON.stringify(projects, undefined, 2)}</pre>
+                            {/* <pre>{JSON.stringify(projects, undefined, 2)}</pre> */}
 
                             <div className="overflow-auto">
                                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:to-gray-400">
                                     <thead className="text-sm text-gray-400 uppercase bg-gray-50 dark:bg-gray-700 dark:to-gray-400 border-b-2 border-gray-500">
                                         <tr className="text-nowrap">
+                                            {/* ID */}
                                             <TableHeading
                                                 name={"id"}
                                                 sortable={true}
@@ -98,14 +106,26 @@ export default function index({ auth, projects, queryParams = null, success }) {
                                             >
                                                 id
                                             </TableHeading>
+
+                                            {/* Image */}
                                             <TableHeading
                                                 name={"image"}
                                                 sortable={false}
                                             >
                                                 image
                                             </TableHeading>
+
+                                            {/* Address */}
                                             <TableHeading
-                                                name={"name"}
+                                                name={"address"}
+                                                sortable={false}
+                                            >
+                                                Address
+                                            </TableHeading>
+
+                                            {/* Feature */}
+                                            <TableHeading
+                                                name={"feature"}
                                                 sortable={true}
                                                 sort_field={
                                                     queryParams.sort_field
@@ -115,23 +135,10 @@ export default function index({ auth, projects, queryParams = null, success }) {
                                                 }
                                                 sortChanged={sortChange}
                                             >
-                                                name
+                                                Feature
                                             </TableHeading>
 
-                                            <TableHeading
-                                                name={"status"}
-                                                sortable={true}
-                                                sort_field={
-                                                    queryParams.sort_field
-                                                }
-                                                sort_direction={
-                                                    queryParams.sort_direction
-                                                }
-                                                sortChanged={sortChange}
-                                            >
-                                                status
-                                            </TableHeading>
-
+                                            {/* created Date */}
                                             <TableHeading
                                                 name={"created_at"}
                                                 sortable={true}
@@ -146,19 +153,7 @@ export default function index({ auth, projects, queryParams = null, success }) {
                                                 created Date
                                             </TableHeading>
 
-                                            <TableHeading
-                                                name={"due_date"}
-                                                sortable={true}
-                                                sort_field={
-                                                    queryParams.sort_field
-                                                }
-                                                sort_direction={
-                                                    queryParams.sort_direction
-                                                }
-                                                sortChanged={sortChange}
-                                            >
-                                                due Date
-                                            </TableHeading>
+                                            {/* created By */}
                                             <TableHeading
                                                 name={"created_by"}
                                                 sortable={false}
@@ -166,6 +161,7 @@ export default function index({ auth, projects, queryParams = null, success }) {
                                                 created By
                                             </TableHeading>
 
+                                            {/* actions */}
                                             <TableHeading
                                                 name={"actions"}
                                                 sortable={false}
@@ -177,53 +173,55 @@ export default function index({ auth, projects, queryParams = null, success }) {
 
                                     <thead className="text-sm text-white uppercase bg-gray-50 dark:bg-gray-700 dark:to-gray-400 border-b-2 border-gray-500">
                                         <tr className="text-nowrap">
-                                            <th className="px-3 py-4"></th>
-                                            <th className="px-3 py-4"></th>
                                             <th className="px-3 py-4">
                                                 <TextInput
                                                     className="w-full text-black"
                                                     defaultValue={
-                                                        queryParams.name
+                                                        queryParams.id
                                                     }
-                                                    placeholder="Project Name"
+                                                    placeholder="Project ID"
                                                     onBlur={(e) =>
                                                         searchFieldChange(
                                                             e.target.value
                                                         )
                                                     }
                                                     onKeyPress={(e) =>
-                                                        onKeyPress("name", e)
+                                                        onKeyPress("id", e)
                                                     }
                                                 />
                                             </th>
-                                            <th className="">
+                                            <th className="px-3 py-4"></th>
+                                            <th className="px-3 py-4"></th>
+
+                                            <th>
                                                 <SelectInput
                                                     defaultValue={
-                                                        queryParams.status
+                                                        queryParams.feature
                                                     }
                                                     className="w-full"
                                                     onChange={(e) =>
                                                         searchFieldChange(
-                                                            "status",
+                                                            "feature",
                                                             e.target.value
                                                         )
                                                     }
                                                 >
-                                                    <option>
+                                                    <option value="">
                                                         Select Status
                                                     </option>
-                                                    <option value="completed">
-                                                        Completed
-                                                    </option>
-                                                    <option value="in_progress">
-                                                        In Progress
-                                                    </option>
-                                                    <option value="pending">
-                                                        Pending
-                                                    </option>
+                                                    {feature.map(
+                                                        (feature, i) => (
+                                                            <option
+                                                                key={i}
+                                                                value={feature}
+                                                                className=""
+                                                            >
+                                                                {feature}
+                                                            </option>
+                                                        )
+                                                    )}
                                                 </SelectInput>
                                             </th>
-                                            <th className="px-3 py-4"></th>
                                             <th className="px-3 py-4"></th>
                                             <th className="px-3 py-4"></th>
                                             <th className="px-3 py-4"></th>
@@ -236,40 +234,48 @@ export default function index({ auth, projects, queryParams = null, success }) {
                                                 key={index}
                                                 className="bg-white dark:text-gray-400 border-b dark:bg-gray-800 dark:border-gray-700"
                                             >
-                                                <td className="px-3 py-2 text-center">
+                                                {/* ID */}
+                                                <td className="px-3 py-2">
                                                     {project.id}
                                                 </td>
+
+                                                {/* Image */}
                                                 <td className="px-3 py-2">
                                                     <img
                                                         className="rounded"
                                                         src={project.image_path}
                                                         alt="Project image"
-                                                        style={{ width: 120 }}
+                                                        style={{
+                                                            width: 200,
+                                                            height: 150,
+                                                            objectFit: "cover",
+                                                            objectPosition:
+                                                                "center",
+                                                        }}
                                                     />
                                                 </td>
-                                                <td className="px-3 py-2 hover:underline hover:text-gray-300 ease-in-out duration-200">
-                                                    <Link
-                                                        href={route(
-                                                            "project.show",
-                                                            project.id
-                                                        )}
-                                                    >
-                                                        {project.name}
-                                                    </Link>
+
+                                                {/* Address */}
+                                                <td className="px-3 py-2">
+                                                    {project.address}
                                                 </td>
 
+                                                {/* Feature */}
+                                                <td className="px-3 py-2 capitalize">
+                                                    {project.feature}
+                                                </td>
+
+                                                {/* created_at */}
                                                 <td className="px-3 py-2">
                                                     {project.created_at}
                                                 </td>
 
-                                                <td className="px-3 py-2">
-                                                    {project.due_date}
-                                                </td>
-
+                                                {/* created_by */}
                                                 <td className="px-3 py-2">
                                                     {project.updated_by.name}
                                                 </td>
 
+                                                {/* Actions */}
                                                 <td className="px-3 py-2">
                                                     <div className="flex items-center justify-center gap-1">
                                                         <Link
