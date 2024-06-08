@@ -5,6 +5,7 @@ import SelectInput from "@/Components/SelectInput";
 import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import ImageModal from "@/Utils/ImageModel";
 import { Head, useForm, Link } from "@inertiajs/react";
 
 export default function Create({ auth, feature }) {
@@ -19,6 +20,8 @@ export default function Create({ auth, feature }) {
         e.preventDefault();
         post(route("project.store"));
     };
+
+    console.log(data);
 
     return (
         <AuthenticatedLayout

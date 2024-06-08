@@ -18,5 +18,22 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms, 
+        noScrollbarPlugin
+    ]
 };
+
+function noScrollbarPlugin({ addUtilities }) {
+    const newUtilities = {
+        '.no-scrollbar::-webkit-scrollbar': {
+            display: 'none',
+        },
+        '.no-scrollbar': {
+            '-ms-overflow-style': 'none',
+            'scrollbar': 'none',
+        },
+    };
+
+    addUtilities(newUtilities);
+}

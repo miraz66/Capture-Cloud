@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
@@ -52,9 +54,22 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        //
+        $data = $request->validated();
+
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('project_images', 'public'); // Store in the 'public' disk
+            $data['image_path'] = $imagePath; // Add image path to the data array
+        }
+
+        $data["created_by"] = Auth::id();
+        $data["updated_by"] = Auth::id();
+
+        Project::create($data);
+        return to_route('project.index')
+            ->with("success", "Project created successfully");
     }
 
     /**

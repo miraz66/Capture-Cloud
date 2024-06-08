@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import TableHeading from "@/Components/TableHeading";
+import ImageModal from "@/Utils/ImageModel";
 
 export default function index({
     auth,
@@ -14,6 +15,8 @@ export default function index({
     success,
 }) {
     queryParams = queryParams || {};
+    const [projectData, setProjectData] = useState(null);
+    const [showModal, setShowModal] = React.useState(false);
 
     const searchFieldChange = (name, value) => {
         console.log(name);
@@ -245,6 +248,12 @@ export default function index({
                                                         className="rounded"
                                                         src={project.image_path}
                                                         alt="Project image"
+                                                        onClick={() => {
+                                                            setShowModal(true),
+                                                                setProjectData(
+                                                                    project
+                                                                );
+                                                        }}
                                                         style={{
                                                             width: 200,
                                                             height: 150,
@@ -307,6 +316,13 @@ export default function index({
                             <Pagination links={projects.meta.links} />
                         </div>
                     </div>
+                </div>
+                <div>
+                    <ImageModal
+                        setShowModal={setShowModal}
+                        showModal={showModal}
+                        projects={projectData}
+                    />
                 </div>
             </div>
         </AuthenticatedLayout>
