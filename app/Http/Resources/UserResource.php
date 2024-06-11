@@ -32,6 +32,7 @@ class UserResource extends JsonResource
             'updated_at' => Carbon::parse($this->updated_at)
                 ->setTimezone($dhakaTimeZone)
                 ->format('Y-m-d, h:i:s A'),
+            "user_image" => $this->user_image
         ];
     }
 }

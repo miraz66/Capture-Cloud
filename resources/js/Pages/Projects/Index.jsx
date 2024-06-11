@@ -245,7 +245,7 @@ export default function index({
                                                 {/* Image */}
                                                 <td className="px-3 py-2">
                                                     <img
-                                                        className="rounded"
+                                                        className="rounded cursor-pointer"
                                                         src={project.image_path}
                                                         alt="Project image"
                                                         onClick={() => {

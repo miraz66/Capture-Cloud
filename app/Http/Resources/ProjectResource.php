@@ -23,8 +23,8 @@ class ProjectResource extends JsonResource
             // 'image_path' => $this->image_path, //? Storage::url($this->image_path) : null,
             'image_path' => $this->image_path ? $this->image_path : Storage::url($this->image_path),
             'address' => $this->address,
-            'created_at' => (new Carbon($this->created_at))->format('Y-m-d'),
-            'updated_at' => (new Carbon($this->updated_at))->format('Y-m-d'),
+            'created_at' => (new Carbon($this->created_at))->format('F-d-Y'),
+            'updated_at' => (new Carbon($this->updated_at))->format('F-d-Y'),
             'created_by' => new UserResource($this->createdBy),
             'updated_by' => new UserResource($this->updatedBy),
         ];

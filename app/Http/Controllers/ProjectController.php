@@ -58,7 +58,6 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
 
-
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('project_images', 'public'); // Store in the 'public' disk
             $data['image_path'] = $imagePath; // Add image path to the data array

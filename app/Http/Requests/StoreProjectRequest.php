@@ -23,7 +23,7 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ["required", "image"],
+            'image' => ["required", "image", 'max:10240'],
             "feature" => ["required", Rule::in(['landscape', 'macro', 'wildlife', 'aerial', 'underwater', 'time_lapse', 'panoramic', 'abstract_nature', 'seasonal', 'night_sky', 'nature_textures', 'botanical_illustrations', 'environmental_impact', 'sunrise_and_sunset', 'natural_phenomena', 'sustainable_agriculture'])],
             "address" => ["required", "string"],
             "description" => ["nullable","string"],
