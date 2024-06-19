@@ -21,8 +21,6 @@ export const ParallaxScroll = ({
     offset: ["start start", "end start"],
   });
 
-  console.log(projects);
-
   const translateFirst = useTransform(scrollYProgress, [0, 1], [0, -200]);
   const translateSecond = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const translateThird = useTransform(scrollYProgress, [0, 1], [0, -200]);
@@ -55,11 +53,11 @@ export const ParallaxScroll = ({
     }
   }, [handleScroll]);
 
-  const third = Math.ceil(images.length / 3);
+  const third = Math.ceil(projects.data.length / 3);
 
-  const firstPart = images.slice(0, third);
-  const secondPart = images.slice(third, 2 * third);
-  const thirdPart = images.slice(2 * third);
+  const firstPart = projects.data.slice(0, third);
+  const secondPart = projects.data.slice(third, 2 * third);
+  const thirdPart = projects.data.slice(2 * third);
 
   return (
     <div
@@ -70,21 +68,21 @@ export const ParallaxScroll = ({
         <div className="w-full bg-white grid grid-cols-1 gap-y-6 ">
           {firstPart.map((status, idx) => (
             <motion.div key={`grid-1-${idx}`} style={{ y: translateFirst }}>
-              <ImageLi images={status} />
+              <ImageLi data={status} />
             </motion.div>
           ))}
         </div>
         <div className="w-full bg-white grid grid-cols-1 gap-y-6 ">
           {secondPart.map((status, idx) => (
             <motion.div key={`grid-2-${idx}`} style={{ y: translateSecond }}>
-              <ImageLi images={status} />
+              <ImageLi data={status} />
             </motion.div>
           ))}
         </div>
         <div className="w-full bg-white grid grid-cols-1 gap-y-6 ">
           {thirdPart.map((status, idx) => (
             <motion.div key={`grid-3-${idx}`} style={{ y: translateThird }}>
-              <ImageLi images={status} />
+              <ImageLi data={status} />
             </motion.div>
           ))}
         </div>

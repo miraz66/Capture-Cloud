@@ -24,9 +24,7 @@ class HomeController extends Controller
             $query->where('feature', request('feature'));
         }
 
-        $projects = $query->orderBy($sortField, $sortDirection)
-            ->paginate(10)
-            ->onEachSide(1);
+        $projects = $query->orderBy($sortField, $sortDirection)->get();
 
         return inertia('Home/Index', [
             'projects' => ProjectResource::collection($projects),
