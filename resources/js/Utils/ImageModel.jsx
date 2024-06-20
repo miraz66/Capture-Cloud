@@ -7,6 +7,7 @@ import {
   CalendarDaysIcon,
   EllipsisHorizontalIcon,
   InformationCircleIcon,
+  MapPinIcon,
 } from "@heroicons/react/24/solid";
 import { IoIosShareAlt } from "react-icons/io";
 
@@ -87,7 +88,7 @@ export default function ImageModal({ showModal, setShowModal, projects }) {
                   className={clsx(
                     "pt-2 mx-auto ease-in-out duration-200",
                     isZoomed
-                      ? "scale-[1.9] cursor-zoom-out"
+                      ? "scale-[1.8] cursor-zoom-out"
                       : "scale-100 cursor-zoom-in max-h-[55rem]"
                   )}
                   src={projects.image_path}
@@ -96,7 +97,7 @@ export default function ImageModal({ showModal, setShowModal, projects }) {
               </div>
               <div className="m-4 flex justify-between">
                 <div>
-                  <div>
+                  <div className="pb-4">
                     <p className="text-gray-500">Featured in</p>
                     <p className="capitalize">{projects.feature}</p>
                   </div>
@@ -104,7 +105,12 @@ export default function ImageModal({ showModal, setShowModal, projects }) {
                     <CalendarDaysIcon className="h-6 w-6 text-gray-500" />
                     <p>Published on {projects.created_by.created_at}</p>
                   </div>
+                  <div className="flex gap-2 pt-2">
+                    <MapPinIcon className="h-6 w-6 text-gray-500" />
+                    <span>{projects.address}</span>
+                  </div>
                 </div>
+
                 <div>
                   <div className="flex gap-2">
                     <button className="flex gap-1 border py-1.5 px-4 border-gray-300 hover:border-gray-500 ease-in-out duration-200 rounded-md">

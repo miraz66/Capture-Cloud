@@ -34,4 +34,29 @@ class HomeController extends Controller
 
         ]);
     }
+
+    public function likeProject($id)
+    {
+        $project = Project::findOrFail($id);
+        $project->toggleLike();
+        // dd($project);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function addToCollection($id)
+    {
+        $project = Project::findOrFail($id);
+        $project->addToCollection();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function removeFromCollection($id)
+    {
+        $project = Project::findOrFail($id);
+        $project->removeFromCollection();
+
+        return response()->json(['success' => true]);
+    }
 }

@@ -10,11 +10,11 @@ const ImageLi = ({ data }) => {
   const projectData = {
     name: data.name,
     id: data.id,
+    feature: data.feature,
+    address: data.address,
     image_path: data.image_path,
     created_by: data.created_by,
   };
-
-  console.log(projectData);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -29,19 +29,23 @@ const ImageLi = ({ data }) => {
       <div
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
-        onClick={() => setShowModal(true)}
         className="relative bg-black hover:opacity-90"
       >
-        <img src={data.image_path} alt="Images" />
+        <img
+          className="cursor-zoom-in"
+          onClick={() => setShowModal(true)}
+          src={data.image_path}
+          alt="Images"
+        />
         {isHovering && (
           <div className="absolute text-white top-4 right-4">
-            {HoverFild.FavouritFilfd()}
+            {HoverFild.FavouritFilfd(data)}
           </div>
         )}
 
         {isHovering && (
           <div className="absolute text-white bottom-3 w-full px-2">
-            {HoverFild.UserFild(data.created_by)}
+            {HoverFild.UserFild(data)}
           </div>
         )}
       </div>
