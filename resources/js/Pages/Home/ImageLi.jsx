@@ -1,12 +1,12 @@
 import { useState } from "react";
 import ImagesHover from "./ImagesHover";
-import ImageModal from "@/Utils/ImageModel";
 
 const HoverFild = new ImagesHover();
 
 const ImageLi = ({ data }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
   const projectData = {
     name: data.name,
     id: data.id,
@@ -49,13 +49,13 @@ const ImageLi = ({ data }) => {
           </div>
         )}
       </div>
-      <div>
+      {/* <div>
         <ImageModal
           setShowModal={setShowModal}
           showModal={showModal}
           projects={projectData}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

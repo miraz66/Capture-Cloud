@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-const FileDownloader = ({ fileUrl, children }) => {
+const FileDownloader = ({ fileUrl, feature, name, children }) => {
   const downloadFile = async () => {
     try {
       const response = await axios.get(fileUrl, {
@@ -11,7 +11,7 @@ const FileDownloader = ({ fileUrl, children }) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "file.jpg"); // Replace with your file name
+      link.setAttribute("download", `${name}_${feature}.jpg`); // Replace with your file name
       document.body.appendChild(link);
       link.click();
       link.remove();

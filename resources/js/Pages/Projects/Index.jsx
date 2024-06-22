@@ -5,7 +5,8 @@ import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import TableHeading from "@/Components/TableHeading";
-import ImageModal from "@/Utils/ImageModel";
+import Modal from "@/Components/Modal";
+import ShowImages from "@/Components/ShowImages";
 
 export default function index({
   auth,
@@ -16,7 +17,7 @@ export default function index({
 }) {
   queryParams = queryParams || {};
   const [projectData, setProjectData] = useState(null);
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const searchFieldChange = (name, value) => {
     if (value) {
@@ -251,14 +252,16 @@ export default function index({
             </div>
           </div>
         </div>
-        <div>
-          <ImageModal
-            setShowModal={setShowModal}
-            showModal={showModal}
-            projects={projectData}
-          />
-        </div>
       </div>
+
+      {/* Modal */}
+      <Modal
+        maxWidth="full"
+        show={showModal}
+        onClose={() => setShowModal(false)}
+      >
+        <ShowImages projects={projectData} />
+      </Modal>
     </AuthenticatedLayout>
   );
 }

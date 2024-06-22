@@ -46,7 +46,6 @@ class ImagesHover extends Component {
   };
 
   UserFild = (props) => {
-    console.log(props);
     return (
       <div className="flex justify-between w-full items-center">
         <div className="flex justify-center items-center gap-1">
@@ -70,7 +69,11 @@ class ImagesHover extends Component {
           </div>
         </div>
         <div>
-          <FileDownloader fileUrl={props.image_path}>
+          <FileDownloader
+            fileUrl={props.image_path}
+            feature={props.feature}
+            name={props.created_by.name}
+          >
             <ArrowDownIcon className="w-10 py-2 px-3 rounded bg-gray-200 text-gray-800 cursor-pointer" />
           </FileDownloader>
         </div>

@@ -4,14 +4,7 @@ import { cn } from "@/Utils/cn"; // Adjust the import path as necessary
 import { fetchUnsplashImages } from "@/Utils/fetchUnsplashImages"; // Adjust the import path as necessary
 import ImageLi from "./ImageLi";
 
-export const ParallaxScroll = ({
-  query,
-  className,
-  projects,
-  queryParams,
-  success,
-  feature,
-}) => {
+export const ParallaxScroll = ({ query, className, projects }) => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);

@@ -1,7 +1,6 @@
-import { Link, Head } from "@inertiajs/react";
-import Nav from "./Nav";
-import SearchContent from "./SearchContent";
+import { Head } from "@inertiajs/react";
 import ImageContent from "./ImageContent";
+import Header from "@/Components/Header";
 
 export default function Index({
   auth,
@@ -13,17 +12,15 @@ export default function Index({
   return (
     <>
       <Head title="Home" />
-      <div>
-        <Nav auth={auth} />
-        <SearchContent />
+
+      <Header user={auth.user}>
         <ImageContent
-          auth={auth}
           projects={projects}
           queryParams={queryParams}
           success={success}
           feature={feature}
         />
-      </div>
+      </Header>
     </>
   );
 }
