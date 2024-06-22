@@ -255,11 +255,7 @@ export default function index({
       </div>
 
       {/* Modal */}
-      <Modal
-        maxWidth="full"
-        show={showModal}
-        onClose={() => setShowModal(false)}
-      >
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
         <ShowImages projects={projectData} />
       </Modal>
     </AuthenticatedLayout>

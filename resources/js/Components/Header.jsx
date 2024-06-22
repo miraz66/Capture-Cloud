@@ -7,8 +7,7 @@ import logo from "@/Assets/logo.png";
 import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/16/solid";
 import clsx from "clsx";
 import Modal from "./Modal";
-import InputLabel from "./InputLabel";
-import PrimaryButton from "./PrimaryButton";
+import SubmitImages from "@/Pages/Home/SubmitImages";
 
 export default function Header({ user, children }) {
   const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -45,20 +44,6 @@ export default function Header({ user, children }) {
 
   const handleModalClose = () => {
     setShowModal(false);
-  };
-
-  const handleModalOpen = () => {
-    setShowModal(true);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setShowModal(false);
-  };
-
-  const handleImageChange = (event) => {
-    event.preventDefault();
-    setShowModal(true);
   };
 
   return (
@@ -101,15 +86,17 @@ export default function Header({ user, children }) {
               </div>
 
               <div className="hidden sm:flex sm:items-center">
-                <button className="bg-gray-50/20 border px-4 py-1 rounded-lg text-gray-600 hover:text-gray-800 hover:border-gray-500 duration-200 ease-in-out">
-                  <p
-                    onClick={() => {
-                      handleModalOpen();
-                    }}
-                    className="text-nowrap"
-                  >
-                    Submit an image
-                  </p>
+                <button
+                  onClick={() => {
+                    if (user) {
+                      setShowModal(true);
+                    } else {
+                      handleLoginClick();
+                    }
+                  }}
+                  className="bg-gray-50/20 border text-nowrap px-4 py-1 rounded-lg text-gray-600 hover:text-gray-800 hover:border-gray-500 duration-200 ease-in-out"
+                >
+                  Submit an image
                 </button>
                 <div className="ms-3 relative">
                   {user ? (
@@ -241,36 +228,7 @@ export default function Header({ user, children }) {
         onClose={handleModalClose}
         title="Submit an image"
       >
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 gap-6">
-            <div>
-              <InputLabel
-                htmlFor="image"
-                value="Image"
-                className="text-gray-700"
-              />
-
-              <input
-                type="file"
-                id="image"
-                name="image"
-                className="block w-full text-sm text-slate-500
-                  file:mr-4 file:py-2 file:px-4
-                  file:rounded-full file:border-0
-                  file:text-sm file:font-semibold
-                  file:bg-violet-50 file:text-violet-700
-                  hover:file:bg-violet-100"
-                onChange={handleImageChange}
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-end mt-4">
-            <PrimaryButton type="submit" className="ml-4">
-              Submit
-            </PrimaryButton>
-          </div>
-        </form>
+        <SubmitImages />
       </Modal>
     </>
   );

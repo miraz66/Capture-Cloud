@@ -20,8 +20,6 @@ export default function Create({ auth, feature }) {
     post(route("project.store"));
   };
 
-  console.log(data);
-
   return (
     <AuthenticatedLayout
       user={auth.user}

@@ -16,7 +16,7 @@ export default function ShowImages({ projects }) {
 
   return (
     <>
-      <div className="relative my-6 mx-auto w-[100rem] bg-white rounded-md ">
+      <div className="relative my-6 mx-auto bg-white rounded-md">
         {/*content*/}
         <div className="m-4 flex justify-between items-center">
           <div className="flex gap-2">
