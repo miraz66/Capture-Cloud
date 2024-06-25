@@ -1,11 +1,15 @@
 import { useState } from "react";
 import ImagesHover from "./ImagesHover";
+import ImageModal from "./ImageModel";
+import ShowImages from "@/Components/ShowImages";
 
 const HoverFild = new ImagesHover();
 
 const ImageLi = ({ data }) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleCloseModal = () => setModalOpen(false);
 
   const projectData = {
     name: data.name,
@@ -33,7 +37,7 @@ const ImageLi = ({ data }) => {
       >
         <img
           className="cursor-zoom-in"
-          onClick={() => setShowModal(true)}
+          onClick={() => setModalOpen(true)}
           src={data.image_path}
           alt="Images"
         />
@@ -49,13 +53,9 @@ const ImageLi = ({ data }) => {
           </div>
         )}
       </div>
-      {/* <div>
-        <ImageModal
-          setShowModal={setShowModal}
-          showModal={showModal}
-          projects={projectData}
-        />
-      </div> */}
+      <ImageModal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <ShowImages projects={projectData} />
+      </ImageModal>
     </div>
   );
 };
