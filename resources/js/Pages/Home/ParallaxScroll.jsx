@@ -58,7 +58,7 @@ export const ParallaxScroll = ({ query, className, projects }) => {
       ref={gridRef}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start max-w-7xl mx-auto gap-6">
-        <div className="w-full bg-white grid grid-cols-1 gap-y-6 ">
+        <div className="w-full bg-white grid grid-cols-1 gap-y-6">
           {firstPart.map((status, idx) => (
             <motion.div key={`grid-1-${idx}`} style={{ y: translateFirst }}>
               <ImageLi data={status} />

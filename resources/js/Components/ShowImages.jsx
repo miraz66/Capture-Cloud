@@ -10,13 +10,20 @@ import {
   MapPinIcon,
 } from "@heroicons/react/24/solid";
 import { IoIosShareAlt } from "react-icons/io";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 export default function ShowImages({ projects }) {
   const [isZoomed, setIsZoomed] = useState(false);
 
   return (
-    <>
-      <div className="relative my-6 mx-auto bg-white rounded-md">
+    <div className={clsx(!isZoomed && "pb-20")}>
+      <div className="my-6 mx-auto bg-white rounded-md pb-10">
         {/*content*/}
         <div className="m-4 flex justify-between items-center">
           <div className="flex gap-2">
@@ -52,7 +59,7 @@ export default function ShowImages({ projects }) {
               "pt-2 mx-auto ease-in-out duration-200",
               isZoomed
                 ? "scale-[1.8] cursor-zoom-out"
-                : "scale-100 cursor-zoom-in max-h-[55rem]"
+                : "scale-100 cursor-zoom-in max-h-[50rem]"
             )}
             src={projects.image_path}
             alt="images"
@@ -92,6 +99,9 @@ export default function ShowImages({ projects }) {
           </div>
         </div>
       </div>
-    </>
+
+      {/* Modal Body Content scroll hide */}
+      <GlobalStyle />
+    </div>
   );
 }

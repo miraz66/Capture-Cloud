@@ -1,7 +1,7 @@
 // src/Modal.js
 import React, { useEffect } from "react";
 
-const ImageModal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (event.target.id === "modal-overlay") {
@@ -19,10 +19,15 @@ const ImageModal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-lg">{children}</div>
+    <div
+      id="modal-overlay"
+      className="fixed z-40 inset-0 overflow-y-scroll pt-5 flex justify-center bg-black bg-opacity-50"
+    >
+      <div className="bg-white h-[55rem] rounded-lg shadow-lg max-w-[100rem] w-full pb-20">
+        {children}
+      </div>
     </div>
   );
 };
 
-export default ImageModal;
+export default Modal;

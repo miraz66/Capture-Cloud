@@ -29,7 +29,7 @@ const ImageLi = ({ data }) => {
   };
 
   return (
-    <div>
+    <>
       <div
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
@@ -53,10 +53,12 @@ const ImageLi = ({ data }) => {
           </div>
         )}
       </div>
+
+      {/* Modal */}
       <ImageModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <ShowImages projects={projectData} />
       </ImageModal>
-    </div>
+    </>
   );
 };
 
