@@ -1,12 +1,9 @@
 import NotFoundPhotos from "@/Assets/NotFoundPhotos.png";
 import logo from "@/Assets/logo.png";
 
-export default function NotFound({ queryParams }) {
+export default function NotFound() {
   return (
     <div className="h-screen">
-      <h1 className="pl-40 pt-20 font-medium text-3xl">
-        {queryParams.feature}
-      </h1>
       <div className="pt-40 flex flex-col justify-center items-center">
         <img
           className="w-1/6 mx-auto"

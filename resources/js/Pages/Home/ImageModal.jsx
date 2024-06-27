@@ -1,7 +1,7 @@
 // src/Modal.js
 import React, { useEffect } from "react";
 
-const Modal = ({ isOpen, onClose, children }) => {
+const ImageModal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (event.target.id === "modal-overlay") {
@@ -30,4 +30,4 @@ const Modal = ({ isOpen, onClose, children }) => {
   );
 };
 
-export default Modal;
+export default ImageModal;

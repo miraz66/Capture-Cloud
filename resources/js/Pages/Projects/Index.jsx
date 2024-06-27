@@ -5,8 +5,8 @@ import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import TableHeading from "@/Components/TableHeading";
-import Modal from "@/Components/Modal";
 import ShowImages from "@/Components/ShowImages";
+import ImageModal from "../Home/ImageModal";
 
 export default function index({
   auth,
@@ -17,7 +17,7 @@ export default function index({
 }) {
   queryParams = queryParams || {};
   const [projectData, setProjectData] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const searchFieldChange = (name, value) => {
     if (value) {
@@ -54,6 +54,8 @@ export default function index({
 
     router.delete(route("project.destroy", id));
   };
+
+  const handleCloseModal = () => setModalOpen(false);
 
   return (
     <AuthenticatedLayout
@@ -201,7 +203,7 @@ export default function index({
                             src={project.image_path}
                             alt="Project image"
                             onClick={() => {
-                              setShowModal(true), setProjectData(project);
+                              setModalOpen(true), setProjectData(project);
                             }}
                             style={{
                               width: 200,
@@ -255,9 +257,9 @@ export default function index({
       </div>
 
       {/* Modal */}
-      <Modal show={showModal} onClose={() => setShowModal(false)}>
+      <ImageModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <ShowImages projects={projectData} />
-      </Modal>
+      </ImageModal>
     </AuthenticatedLayout>
   );
 }

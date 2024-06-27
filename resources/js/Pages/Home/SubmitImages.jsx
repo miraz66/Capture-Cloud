@@ -6,23 +6,13 @@ import TextAreaInput from "@/Components/TextAreaInput";
 import TextInput from "@/Components/TextInput";
 import { Link, useForm } from "@inertiajs/react";
 
-export default function SubmitImages() {
+export default function SubmitImages({ feature }) {
   const { data, setData, post, errors, reset } = useForm({
     image: "",
     feature: "",
     address: "",
     description: "",
   });
-  const feature = [
-    "Nature",
-    "Architecture",
-    "City",
-    "People",
-    "People",
-    "People",
-    "People",
-    "People",
-  ];
 
   const onSubmit = (e) => {
     e.preventDefault();

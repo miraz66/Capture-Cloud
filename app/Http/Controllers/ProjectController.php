@@ -10,10 +10,11 @@ use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
-    public $imageCategories = ['landscape', 'macro', 'wildlife', 'aerial', 'underwater', 'time_lapse', 'panoramic', 'abstract_nature', 'seasonal', 'night_sky', 'nature_textures', 'botanical_illustrations', 'environmental_impact', 'sunrise_and_sunset', 'natural_phenomena', 'sustainable_agriculture']; 
+    // public $imageCategories = ['landscape', 'macro', 'wildlife', 'aerial', 'underwater', 'time_lapse', 'panoramic', 'abstract_nature', 'seasonal', 'night_sky', 'nature_textures', 'botanical_illustrations', 'environmental_impact', 'sunrise_and_sunset', 'natural_phenomena', 'sustainable_agriculture'];
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $query = Project::query();
@@ -36,8 +37,7 @@ class ProjectController extends Controller
             'projects' => ProjectResource::collection($projects),
             'queryParams' => request()->query() ?: null,
             "success" => session("success"),
-            "feature" => $this->imageCategories
-
+            "feature" => Project::getImageCategories()
         ]);
     }
 
@@ -47,7 +47,7 @@ class ProjectController extends Controller
     public function create()
     {
         return inertia('Projects/Create', [
-            "feature" => $this->imageCategories
+            "feature" => Project::getImageCategories()
         ]);
     }
 

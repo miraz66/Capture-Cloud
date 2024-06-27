@@ -10,7 +10,12 @@ import Modal from "./Modal";
 import SubmitImages from "@/Pages/Home/SubmitImages";
 import TextInput from "./TextInput";
 
-export default function Header({ user, children, queryParams = null }) {
+export default function Header({
+  user,
+  children,
+  queryParams = null,
+  feature,
+}) {
   queryParams = queryParams || {};
 
   const searchFieldChange = (name, value) => {
@@ -249,7 +254,7 @@ export default function Header({ user, children, queryParams = null }) {
         onClose={handleModalClose}
         title="Submit an image"
       >
-        <SubmitImages />
+        <SubmitImages feature={feature} />
       </Modal>
     </>
   );

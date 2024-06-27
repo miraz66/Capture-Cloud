@@ -18,11 +18,27 @@ export default function Index({
   feature,
   noResults,
 }) {
+  console.log(queryParams);
   return (
     <>
       <Head title="Home" />
 
-      <Header user={auth.user} queryParams={queryParams}>
+      <Header user={auth.user} queryParams={queryParams} feature={feature}>
+        {noResults ? (
+          <h1 className="pl-40 pt-20 font-medium text-3xl">
+            {queryParams.feature}
+          </h1>
+        ) : (
+          <h1 className="pl-40 pt-10 pb-20 font-medium text-3xl">
+            {queryParams === null ? (
+              <spen className="font-serif font-bold text-gray-700">
+                Capture Cloud
+              </spen>
+            ) : (
+              queryParams.feature
+            )}
+          </h1>
+        )}
         {!noResults ? (
           <ImageContent
             projects={projects}

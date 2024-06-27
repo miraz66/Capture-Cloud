@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ImagesHover from "./ImagesHover";
-import ImageModal from "./ImageModel";
+import ImageModal from "./ImageModal";
 import ShowImages from "@/Components/ShowImages";
 
 const HoverFild = new ImagesHover();
