@@ -1,8 +1,14 @@
 import { Head } from "@inertiajs/react";
 import ImageContent from "./ImageContent";
 import Header from "@/Components/Header";
-import ImageModal from "./ImageModel";
-import { useState } from "react";
+import NotFound from "./NotFound";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    overflow: hidden;
+  }
+`;
 
 export default function Index({
   auth,
@@ -10,19 +16,26 @@ export default function Index({
   queryParams,
   success,
   feature,
+  noResults,
 }) {
   return (
     <>
       <Head title="Home" />
 
-      <Header user={auth.user}>
-        <ImageContent
-          projects={projects}
-          queryParams={queryParams}
-          success={success}
-          feature={feature}
-        />
+      <Header user={auth.user} queryParams={queryParams}>
+        {!noResults ? (
+          <ImageContent
+            projects={projects}
+            queryParams={queryParams}
+            success={success}
+            feature={feature}
+          />
+        ) : (
+          <NotFound queryParams={queryParams} />
+        )}
       </Header>
+
+      {noResults && <GlobalStyle />}
     </>
   );
 }

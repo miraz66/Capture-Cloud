@@ -21,17 +21,18 @@ class HomeController extends Controller
         }
 
         if (request('feature')) {
-            $query->where('feature', request('feature'));
+            $query->where('feature', 'like', '%' . request('feature') . '%');
         }
 
         $projects = $query->orderBy($sortField, $sortDirection)->get();
+        $noResults = $projects->isEmpty();
 
         return inertia('Home/Index', [
             'projects' => ProjectResource::collection($projects),
             'queryParams' => request()->query() ?: null,
             "success" => session("success"),
-            "feature" => $this->imageCategories
-
+            "feature" => $this->imageCategories,
+            'noResults' => $noResults
         ]);
     }
 

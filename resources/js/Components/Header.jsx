@@ -2,14 +2,33 @@ import { useState, useEffect, useRef } from "react";
 import Dropdown from "@/Components/Dropdown";
 // import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import logo from "@/Assets/logo.png";
 import { MagnifyingGlassIcon, UserCircleIcon } from "@heroicons/react/16/solid";
 import clsx from "clsx";
 import Modal from "./Modal";
 import SubmitImages from "@/Pages/Home/SubmitImages";
+import TextInput from "./TextInput";
 
-export default function Header({ user, children }) {
+export default function Header({ user, children, queryParams = null }) {
+  queryParams = queryParams || {};
+
+  const searchFieldChange = (name, value) => {
+    if (value) {
+      queryParams[name] = value;
+    } else {
+      delete queryParams[name];
+    }
+
+    router.get(route("home.index"), queryParams);
+  };
+
+  const onKeyPress = (name, e) => {
+    if (e.key !== "Enter") return;
+
+    searchFieldChange(name, e.target.value);
+  };
+
   const [showingNavigationDropdown, setShowingNavigationDropdown] =
     useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -55,7 +74,7 @@ export default function Header({ user, children }) {
               <div className="flex">
                 <div className="shrink-0 flex items-center">
                   <Link href="/">
-                    <img className="h-14 w-14" src={logo} alt="logo" />
+                    <img className="h-12 w-12" src={logo} alt="logo" />
                   </Link>
                 </div>
               </div>
@@ -68,19 +87,21 @@ export default function Header({ user, children }) {
                     "w-full px-4 rounded-full flex border",
                     isFocused
                       ? "shadow-sm border bg-white"
-                      : "shadow-0 bg-gray-100/30"
+                      : "shadow-0 bg-gray-200"
                   )}
                 >
                   <button>
                     <MagnifyingGlassIcon className="w-5 h-5 text-gray-500" />
                   </button>
-                  <input
-                    type="text"
+                  <TextInput
                     placeholder="Search photos and illustrations"
                     className={clsx(
                       "w-full border-none focus:ring-0 focus:ring-offset-0",
                       isFocused ? "bg-white" : "bg-gray-100/30"
                     )}
+                    defaultValue={queryParams.feature}
+                    onBlur={(e) => searchFieldChange(e.target.value)}
+                    onKeyPress={(e) => onKeyPress("feature", e)}
                   />
                 </div>
               </div>

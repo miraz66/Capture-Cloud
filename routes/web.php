@@ -1,19 +1,20 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 
 Route::redirect('/', '/home');
-Route::get('/home', [HomeController::class, "index"])->name('home');
+
+Route::middleware([])->group(function () {
+    Route::resource('home', HomeController::class);
+});
+
 Route::post('/projects/{id}/like', [HomeController::class, 'likeProject'])->name('projects.like');
 Route::post('/projects/{id}/add-to-collection', [HomeController::class, 'addToCollection'])->name('projects.add_to_collection');
 Route::post('/projects/{id}/remove-from-collection', [HomeController::class, 'removeFromCollection'])->name('projects.remove_from_collection');
-
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
