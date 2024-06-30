@@ -7,10 +7,11 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ProjectResource;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
-    // public $imageCategories = ['landscape', 'macro', 'wildlife', 'aerial', 'underwater', 'time_lapse', 'panoramic', 'abstract_nature', 'seasonal', 'night_sky', 'nature_textures', 'botanical_illustrations', 'environmental_impact', 'sunrise_and_sunset', 'natural_phenomena', 'sustainable_agriculture'];
+    public $imageCategories = ['landscape', 'macro', 'wildlife', 'aerial', 'underwater', 'time_lapse', 'panoramic', 'abstract_nature', 'seasonal', 'night_sky', 'nature_textures', 'botanical_illustrations', 'environmental_impact', 'sunrise_and_sunset', 'natural_phenomena', 'sustainable_agriculture'];
     /**
      * Display a listing of the resource.
      */
@@ -33,11 +34,13 @@ class ProjectController extends Controller
             ->paginate(10)
             ->onEachSide(1);
 
+
+
         return inertia('Projects/Index', [
             'projects' => ProjectResource::collection($projects),
             'queryParams' => request()->query() ?: null,
             "success" => session("success"),
-            "feature" => Project::getImageCategories()
+            "feature" => $this->imageCategories,
         ]);
     }
 
@@ -47,7 +50,7 @@ class ProjectController extends Controller
     public function create()
     {
         return inertia('Projects/Create', [
-            "feature" => Project::getImageCategories()
+            "feature" => $this->imageCategories,
         ]);
     }
 
@@ -67,6 +70,7 @@ class ProjectController extends Controller
         $data["updated_by"] = Auth::id();
 
         Project::create($data);
+
         return to_route('project.index')
             ->with("success", "Project created successfully");
     }
@@ -84,7 +88,13 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return inertia(
+            'Projects/Edit',
+            [
+                'project' => new ProjectResource($project),
+                "feature" => $this->imageCategories
+            ]
+        );
     }
 
     /**
@@ -98,8 +108,22 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Project $project)
     {
-        //
+        // Save the project name for the success message
+        $name = $project->name;
+
+        // Check if the project has an associated image
+        if ($project->image_path) {
+            // Delete the specific image file
+            Storage::disk('public')->delete($project->image_path);
+        }
+
+        // Now delete the project record from the database
+        $project->delete();
+
+        // Redirect to the project index page with a success message
+        return to_route('project.index')->with("success", "Project \"$name\" was deleted");
     }
 }

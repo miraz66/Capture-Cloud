@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
             'password' => '1234qwer!',
         ]);
 
-        Project::factory(10)->create();
+        Project::factory(50)->create();
     }
 }

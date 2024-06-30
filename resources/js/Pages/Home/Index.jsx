@@ -18,7 +18,7 @@ export default function Index({
   feature,
   noResults,
 }) {
-  console.log(queryParams);
+  console.log(feature);
   return (
     <>
       <Head title="Home" />
@@ -29,9 +29,9 @@ export default function Index({
             {queryParams.feature}
           </h1>
         ) : (
-          <h1 className="pl-40 pt-10 pb-20 font-medium text-3xl">
+          <h1 className="pl-40 pt-10 pb-20 font-medium text-3xl font-sans">
             {queryParams === null ? (
-              <spen className="font-serif font-bold text-gray-700">
+              <spen className="text-gray-700 font-playwrite playwrite-it-moderna-bold">
                 Capture Cloud
               </spen>
             ) : (
