@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import Dropdown from "@/Components/Dropdown";
-// import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, router } from "@inertiajs/react";
 import logo from "@/Assets/logo.png";
@@ -254,7 +253,7 @@ export default function Header({
         onClose={handleModalClose}
         title="Submit an image"
       >
-        <SubmitImages feature={feature} />
+        <SubmitImages feature={feature} onClose={handleModalClose} />
       </Modal>
     </>
   );

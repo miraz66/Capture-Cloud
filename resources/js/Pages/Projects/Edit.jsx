@@ -20,10 +20,12 @@ export default function Create({ auth, project, feature }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    post(route("project.update", project.id));
+    post(route("projects.update", project.id));
   };
 
-  console.log(data.status);
+  if (data.image_path === "http//capturecloud.test/") {
+    console.log(data.image_path);
+  }
 
   return (
     <AuthenticatedLayout
@@ -42,39 +44,36 @@ export default function Create({ auth, project, feature }) {
           <div className="bg-white overflow-hidden dark:bg-gray-700 shadow-sm sm:rounded-lg">
             <div className="p-6 text-gray-300">
               <h1 className="text-center font-medium text-3xl py-2 transform">
-                Edit Your Project.
+                Edit Your Details.
               </h1>
+
               <form className="space-y-6" onSubmit={onSubmit}>
                 {/*  Create a new project from image */}
                 <div>
-                  <InputLabel
-                    className="text-white text-lg font-medium"
-                    htmlFor="project_image_path"
-                    value="Project Image"
+                  <img
+                    className="rounded-lg"
+                    src={"http://capturecloud.test/" + data.image_path}
+                    alt="Project Image"
                   />
-
+                  {/*
                   <TextInput
                     id="project_image_path"
                     name="image"
                     type="file"
                     isFocused="true"
-                    className="mt-1 py-1.5 px-2 block w-full bg-gray-400 border-black"
+                    className="mt-8 py-1.5 px-2 block w-full bg-gray-400 border-black"
                     onChange={(e) => setData("image", e.target.files[0])}
                   />
-                  <InputError message={errors.image} className="mt-2" />
-
-                  {data.image_path && (
-                    <img
-                      className="w-52 m-4"
-                      src={data.image_path}
-                      alt="edit image"
-                    />
-                  )}
+                  <InputError message={errors.image} className="mt-2" /> */}
                 </div>
 
                 {/* Create a new Project from Location */}
                 <div>
-                  <InputLabel htmlFor="address" value="Addrass" />
+                  <InputLabel
+                    className="text-white text-lg font-medium"
+                    htmlFor="address"
+                    value="Addrass"
+                  />
 
                   <TextInput
                     id="address"
@@ -92,7 +91,11 @@ export default function Create({ auth, project, feature }) {
 
                 {/* Create a new Project from Feature */}
                 <div>
-                  <InputLabel htmlFor="status" value="Project Status" />
+                  <InputLabel
+                    className="text-white text-lg font-medium"
+                    htmlFor="status"
+                    value="Project Status"
+                  />
 
                   <SelectInput
                     id="status"
@@ -117,6 +120,7 @@ export default function Create({ auth, project, feature }) {
                 {/* Create a new Project from Description */}
                 <div>
                   <InputLabel
+                    className="text-white text-lg font-medium"
                     htmlFor="description"
                     value="Project Description"
                   />

@@ -34,8 +34,6 @@ class ProjectController extends Controller
             ->paginate(10)
             ->onEachSide(1);
 
-
-
         return inertia('Projects/Index', [
             'projects' => ProjectResource::collection($projects),
             'queryParams' => request()->query() ?: null,
@@ -71,7 +69,7 @@ class ProjectController extends Controller
 
         Project::create($data);
 
-        return to_route('project.index')
+        return to_route('home.index')
             ->with("success", "Project created successfully");
     }
 
@@ -87,7 +85,10 @@ class ProjectController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Project $project)
+
     {
+
+        // dd($project);
         return inertia(
             'Projects/Edit',
             [
@@ -102,7 +103,26 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $data = $request->validated();
+        $data["updated_by"] = Auth::id();
+
+        // Check if there is a new image in the request
+        if ($request->hasFile('image')) {
+            // If there's an existing image, delete it
+            if ($project->image_path) {
+                Storage::disk('public')->deleteDirectory($project->image_path);
+            }
+
+            // Store the new images
+            $imagePath = $request->file('image')->store('project_images', 'public');
+            $data['image_path'] = $imagePath;
+        }
+
+        // Update the project with the new data
+        $project->update($data);
+
+        return to_route('project.index')
+            ->with("success", "Project updated successfully");
     }
 
     /**
@@ -112,7 +132,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         // Save the project name for the success message
-        $name = $project->name;
+        $name = $project->feature;
 
         // Check if the project has an associated image
         if ($project->image_path) {

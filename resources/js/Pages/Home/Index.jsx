@@ -18,7 +18,6 @@ export default function Index({
   feature,
   noResults,
 }) {
-  console.log(feature);
   return (
     <>
       <Head title="Home" />

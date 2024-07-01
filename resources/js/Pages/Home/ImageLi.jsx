@@ -12,12 +12,12 @@ const ImageLi = ({ data }) => {
   const handleCloseModal = () => setModalOpen(false);
 
   const projectData = {
-    name: data.name,
     id: data.id,
     feature: data.feature,
     address: data.address,
     image_path: data.image_path,
     created_by: data.created_by,
+    created_at: data.created_at,
   };
 
   const handleMouseOver = () => {

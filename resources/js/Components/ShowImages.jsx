@@ -73,7 +73,7 @@ export default function ShowImages({ projects }) {
             </div>
             <div className="flex gap-2 pt-2">
               <CalendarDaysIcon className="h-6 w-6 text-gray-500" />
-              <p>Published on {projects.created_by.created_at}</p>
+              <p>Published on {projects.created_at}</p>
             </div>
             <div className="flex gap-2 pt-2">
               <MapPinIcon className="h-6 w-6 text-gray-500" />
