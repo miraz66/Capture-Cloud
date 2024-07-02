@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-const FileDownloader = ({ fileUrl, feature, name, children }) => {
+const FileDownloader = ({ fileUrl, feature, name, children, className }) => {
   const downloadFile = async () => {
     try {
       const response = await axios.get(fileUrl, {
@@ -23,7 +23,9 @@ const FileDownloader = ({ fileUrl, feature, name, children }) => {
 
   return (
     <div>
-      <button onClick={downloadFile}>{children}</button>
+      <button className={className} onClick={downloadFile}>
+        {children}
+      </button>
     </div>
   );
 };

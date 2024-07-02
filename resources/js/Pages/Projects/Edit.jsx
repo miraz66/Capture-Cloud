@@ -9,10 +9,9 @@ import { Head, useForm, Link } from "@inertiajs/react";
 
 export default function Create({ auth, project, feature }) {
   const { data, setData, post, errors, reset } = useForm({
-    image: "",
     image_path: project.data.image_path || "",
     address: project.data.address || "",
-    status: project.data.feature || "",
+    feature: project.data.feature || "",
     description: project.data.description || "",
     _method: "PUT",
   });
@@ -20,12 +19,8 @@ export default function Create({ auth, project, feature }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    post(route("projects.update", project.id));
+    post(route("project.update", project.data.id));
   };
-
-  if (data.image_path === "http//capturecloud.test/") {
-    console.log(data.image_path);
-  }
 
   return (
     <AuthenticatedLayout
@@ -93,28 +88,28 @@ export default function Create({ auth, project, feature }) {
                 <div>
                   <InputLabel
                     className="text-white text-lg font-medium"
-                    htmlFor="status"
+                    htmlFor="feature"
                     value="Project Status"
                   />
 
                   <SelectInput
-                    id="status"
-                    name="status"
+                    id="feature"
+                    name="feature"
                     type="text"
                     placeholder="Project Status"
                     isFocused="true"
-                    value={data.status}
+                    value={data.feature}
                     className="mt-1 block w-full py-2"
-                    onChange={(e) => setData("status", e.target.value)}
+                    onChange={(e) => setData("feature", e.target.value)}
                   >
                     <option value="">Select Feature</option>
-                    {feature.map((status) => (
-                      <option key={status} value={status}>
-                        {status}
+                    {feature.map((feature) => (
+                      <option key={feature} value={feature}>
+                        {feature}
                       </option>
                     ))}
                   </SelectInput>
-                  <InputError message={errors.status} className="mt-2" />
+                  <InputError message={errors.feature} className="mt-2" />
                 </div>
 
                 {/* Create a new Project from Description */}
@@ -142,7 +137,7 @@ export default function Create({ auth, project, feature }) {
                 {/* Submit or Cancel Button */}
                 <div className="flex justify-end gap-5">
                   <Link
-                    // href={route("project.index")}
+                    href={route("project.index")}
                     className="inline-flex items-center px-6 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                   >
                     Cancel

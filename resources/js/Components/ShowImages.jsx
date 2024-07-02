@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { IoIosShareAlt } from "react-icons/io";
 import { createGlobalStyle } from "styled-components";
+import FileDownloader from "@/Utils/Download";
 
 const GlobalStyle = createGlobalStyle`
   body::-webkit-scrollbar {
@@ -47,9 +48,14 @@ export default function ShowImages({ projects }) {
           <div className="flex gap-2">
             <HeartIcon className="h-8 w-8 px-1.5 border border-gray-300 hover:border-gray-500 ease-in-out duration-200 rounded-md cursor-pointer" />
             <PlusIcon className="h-8 w-8 px-1.5 border border-gray-300 hover:border-gray-500 ease-in-out duration-200 rounded-md cursor-pointer" />
-            <button className="border px-4 border-gray-300 hover:border-gray-500 ease-in-out duration-200 rounded-md">
+            <FileDownloader
+              fileUrl={projects.image_path}
+              feature={projects.feature}
+              name={projects.created_by.name}
+              className="border px-4 py-1 border-gray-300 hover:border-gray-500 ease-in-out duration-200 rounded-md"
+            >
               Download
-            </button>
+            </FileDownloader>
           </div>
         </div>
         <div className="pb-10">
