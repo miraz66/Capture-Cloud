@@ -7,6 +7,7 @@ import SelectInput from "@/Components/SelectInput";
 import TableHeading from "@/Components/TableHeading";
 import ShowImages from "@/Components/ShowImages";
 import ImageModal from "../Home/ImageModal";
+import SuccessMessage from "@/Utils/SuccessMessage";
 
 export default function index({
   auth,
@@ -74,18 +75,8 @@ export default function index({
         </div>
       }
     >
-      <Head title="Projects" />
-      {success && (
-        <div
-          x-data="{ show: true }"
-          x-init="setTimeout(() => show = false, 3000)"
-          x-show="show"
-          className="text-emerald-500 text-center pt-5"
-        >
-          {success}
-        </div>
-      )}
-
+      <Head title="Projects" />{" "}
+      {success && <SuccessMessage message={success} />}
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-4">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -255,7 +246,6 @@ export default function index({
           </div>
         </div>
       </div>
-
       {/* Modal */}
       <ImageModal isOpen={isModalOpen} onClose={handleCloseModal}>
         <ShowImages projects={projectData} />
