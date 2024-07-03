@@ -73,7 +73,7 @@ export default function Header({
     <>
       <div className="min-h-screen bg-gray-100">
         <nav className="bg-white border-b border-gray-100">
-          <div className="px-4 py-4 sm:px-6 lg:px-8">
+          <div className="px-4 py-2 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <div className="flex">
                 <div className="shrink-0 flex items-center">

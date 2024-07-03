@@ -60,7 +60,9 @@ export default function Index({
             )}
 
             <img
-              className={clsx(noResults ? "hidden" : "h-80 max-lg:hidden")}
+              className={clsx(
+                noResults ? "hidden" : "h-80 max-lg:hidden select-none"
+              )}
               src={undraw_landscape_photographer_blv1}
               alt=""
             />
